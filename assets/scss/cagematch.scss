@@ -22,9 +22,31 @@ $font-defaults: Helvetica, Arial, sans-serif;
 $video-game-font: 'Press Start 2P', cursive;
 $main-color: ;
 $alt-color: ;
-$main-border: ;
+$main-border: 3px solid black;
 
 // starting styles
 body {
     font-family: $video-game-font;
+}
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @include outer-container(980px);
+}
+.herotarget, .enemytarget {
+    @include span-columns(6);
+}
+.messages {
+    @include span-columns(12);
+
+    border-radius: 5px;
+    border: $main-border;
+    padding: 1px;
+    .fight {
+    border-radius: 5px;
+    border: $main-border;
+    }
 }
