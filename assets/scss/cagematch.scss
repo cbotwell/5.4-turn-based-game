@@ -1,0 +1,30 @@
+// imported and box sizing
+
+@import 'reset';
+
+$fa-font-path:        "//netdna.bootstrapcdn.com/font-awesome/4.3.0/fonts";
+@import 'font-awesome';
+@import url(http://fonts.googleapis.com/css?family=Press+Start+2P);
+
+@import 'bourbon';
+@import 'neat';
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+// variables
+
+$font-defaults: Helvetica, Arial, sans-serif;
+$video-game-font: 'Press Start 2P', cursive;
+$main-color: ;
+$alt-color: ;
+$main-border: ;
+
+// starting styles
+body {
+    font-family: $video-game-font;
+}
