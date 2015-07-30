@@ -1,0 +1,24 @@
+{
+  "name": "5.4-turn-based-game",
+  "version": "0.0.0",
+  "authors": [
+    "Corbin Otwell <cbotwell@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "handlebars": "~3.0.3",
+    "neat": "~1.7.2",
+    "reset-css": "~2.0.2011012602",
+    "underscore": "~1.8.3",
+    "backbone": "~1.2.1",
+    "fontawesome": "~4.4.0"
+  }
+}
