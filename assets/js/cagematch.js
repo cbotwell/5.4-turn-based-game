@@ -3,7 +3,26 @@ memphisRaines = new Character({name: 'Memphis Raines', weapons: {eleanor: 60}, h
 benjaminGates = new Character({name: 'Benjamin Gates', weapons: {declarationOfIndependence: 50}, hitPoints: 100});
 johhnyBlaze = new Character({name: 'Johnny Blaze', weapons: {chain: 30}, hitPoints: 100});
 
-$('.game-target').html(AppTemplates.battle());
+var heros = [castorTroy, memphisRaines, benjaminGates, johhnyBlaze];
+
+$('.game-target').html(AppTemplates.start(heros));
+
+function Game(hero) {
+  this.hero = hero;
+  this.enemy = johhnyBlaze;
+  this.turnNumber = 0;
+  this.gameOver = false;
+}
+
+var selectCharacterEl = $('.select-character');
+
+selectCharacterEl.on('click', function() {
+  var indexSelected = $(this).data('index');
+  var hero = heros[indexSelected];
+
+  var game = new Game(hero);
+  $('.game-target').html(AppTemplates.battle());
+});
 
 var heroTargetEl = $('.hero-target');
 var enemyTargetEl = $('.enemy-target');
