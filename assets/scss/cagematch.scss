@@ -34,19 +34,44 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    @include outer-container(980px);
+    @include outer-container;
+    width: 980px;
 }
-.herotarget, .enemytarget {
-    @include span-columns(6);
-}
-.messages {
-    @include span-columns(12);
+.start {
+    h1 {
+        font-size: 3em;
+        text-align: center;
+    }
 
-    border-radius: 5px;
-    border: $main-border;
-    padding: 1px;
-    .fight {
-    border-radius: 5px;
-    border: $main-border;
+}
+.battle {
+    .hero-target, .enemy-target {
+        @include span-columns(6 of 12);
+        text-align: center;
+        padding: 10px;
+    }
+    .messages {
+        @include span-columns(12);
+
+        border-radius: 5px;
+        border: $main-border;
+        padding: 1px;
+        .fight {
+        border-radius: 5px;
+        border: $main-border;
+        padding: 10px;
+        }
+        button {
+            font-family: inherit;
+            border: none;
+            padding: 10px;
+        }
+    }
+}
+.gameover {
+    text-align: center;
+    h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
     }
 }
