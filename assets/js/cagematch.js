@@ -31,54 +31,46 @@ var attackButtonEl = [];
 
 var healthBar = [];
 
-var newBattle = function() {
+var newBattle = function(game) {
   $('.game-target').html(AppTemplates.battle());
 
   heroTargetEl = $('.hero-target');
   enemyTargetEl = $('.enemy-target');
-  renderHero(currentHero);
-  renderEnemy(currentEnemy);
+  renderHero(game.hero);
+  renderEnemy(game.enemy);
 
   healthBar = $('.hpbar');
-  healthBar.width(currentHero.getHealth + '%');
+  healthBar.width(game.hero.getHealth + '%');
 
   attackButtonEl = $('.attack');
-  attackButtonEl.html(currentHero.weaponName);
+  attackButtonEl.html(game.hero.weaponName);
 
   attackButtonEl.on('click', function() {
-    currentHero.attack(currentEnemy, 'dualGoldenGuns');
-    renderHero(currentHero);
-    renderEnemy(currentEnemy);
+    game.hero.attack(game.enemy, 'dualGoldenGuns');
+    renderHero(game.hero);
+    renderEnemy(game.enemy);
 
-    healthBar.width(currentEnemy.getHealth + '%');
-    turn++;
+    healthBar.width(game.enemy.getHealth + '%');
+    game.turnNumber++;
   });
 
-  if (turn % 2 === 1) {
-    currentEnemy.attack(currentHero, 'chain');
-    renderHero(currentHero);
-    renderEnemy(currentEnemy);
+  if (game.turnNumber % 2 === 1) {
+    game.enemy.attack(game.hero, 'chain');
+    renderHero(game.hero);
+    renderEnemy(game.enemy);
 
-    healthBar.width(currentEnemy.getHealth + '%');
+    healthBar.width(game.enemy.getHealth + '%');
     turn++;
   }
 
-  if (currentHero.getHealth <= 0 || currentEnemy.getHealth <= 0) {
+  if (game.hero.getHealth <= 0 || game.enemy.getHealth <= 0) {
     $('.game-target').html(AppTemplates.gameover());
   }
 };
-
-var currentHero = {};
-var currentEnemy = {};
-var turn = 0;
 
 selectCharacterEl.on('click', function() {
   var indexSelected = $(this).data('index');
   var hero = heros[indexSelected];
   var game = new Game(hero);
-  currentHero = game.hero;
-  currentEnemy = game.enemy;
-  turn = game.turnNumber;
-
-  newBattle();
+  newBattle(game);
 });
