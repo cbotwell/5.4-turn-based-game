@@ -99,13 +99,21 @@ body {
         min-height: 100px;
         position: relative;
         }
+        .fa-play {
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            transform: translateY(-50%);
+        }
         button {
             font-family: inherit;
             padding: 10px;
             position: absolute;
             top: 50%;
-            left: 30px;
+            left: 50px;
             transform: translateY(-50%);
+            border: none;
+            background: none;
         }
     }
 }

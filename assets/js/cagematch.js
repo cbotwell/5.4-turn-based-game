@@ -1,7 +1,7 @@
-castorTroy = new Character({name: 'Castor Troy', weapons: {dualGoldenGuns: 40}, hitPoints: 100, imgUrl: 'nic.png'});
-memphisRaines = new Character({name: 'Memphis Raines', weapons: {eleanor: 60}, hitPoints: 100, imgUrl: 'nic.png'});
-benjaminGates = new Character({name: 'Benjamin Gates', weapons: {declarationOfIndependence: 50}, hitPoints: 100, imgUrl: 'nic.png'});
-johhnyBlaze = new Character({name: 'Johnny Blaze', weapons: {chain: 30}, hitPoints: 100, imgUrl: 'nic.png'});
+castorTroy = new Character({name: 'Castor Troy', weapons: {dualGoldenGuns: 40}, weaponName: 'Dual Golden Guns', hitPoints: 100, imgUrl: 'nic.png'});
+memphisRaines = new Character({name: 'Memphis Raines', weapons: {eleanor: 60}, weaponName: 'Eleanor', hitPoints: 100, imgUrl: 'nic.png'});
+benjaminGates = new Character({name: 'Benjamin Gates', weapons: {declarationOfIndependence: 50}, weaponName: 'Declaration of Independence', hitPoints: 100, imgUrl: 'nic.png'});
+johhnyBlaze = new Character({name: 'Johnny Blaze', weapons: {chain: 30}, weaponName: 'Chain', hitPoints: 100, imgUrl: 'nic.png'});
 
 var heros = [castorTroy, memphisRaines, benjaminGates, johhnyBlaze];
 
@@ -27,7 +27,7 @@ var renderEnemy = function(enemy) {
   enemyTargetEl.html(AppTemplates.character(enemy));
 };
 
-var attackButtonEl = $('.attack');
+var attackButtonEl = [];
 
 var healthBar = [];
 
@@ -42,11 +42,21 @@ var newBattle = function() {
   healthBar = $('.hpbar');
   healthBar.width(currentHero.getHealth + '%');
 
-  attackButtonEl.html('weapon');
+  attackButtonEl = $('.attack');
+  attackButtonEl.html(currentHero.weaponName);
+
+  attackButtonEl.on('click', function() {
+    currentHero.attack(currentEnemy, 'dualGoldenGuns');
+    renderHero(currentHero);
+    renderEnemy(currentEnemy);
+    turn = turn + 1;
+    debugger;
+  });
 };
 
 var currentHero = {};
 var currentEnemy = {};
+var turn = 0;
 
 selectCharacterEl.on('click', function() {
   var indexSelected = $(this).data('index');
@@ -54,5 +64,7 @@ selectCharacterEl.on('click', function() {
   var game = new Game(hero);
   currentHero = game.hero;
   currentEnemy = game.enemy;
+  turn = game.turn;
+
   newBattle();
 });

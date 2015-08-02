@@ -2,6 +2,7 @@ function Character(options) {
   options = options || {};
   var hitPoints = options.hitPoints || 100;
   this.weapons = options.weapons || {};
+  this.weaponName = options.weaponName;
   this.name = options.name;
   this.imgUrl = options.imgUrl;
 
