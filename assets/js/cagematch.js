@@ -49,9 +49,23 @@ var newBattle = function() {
     currentHero.attack(currentEnemy, 'dualGoldenGuns');
     renderHero(currentHero);
     renderEnemy(currentEnemy);
-    turn = turn + 1;
-    debugger;
+
+    healthBar.width(currentEnemy.getHealth + '%');
+    turn++;
   });
+
+  if (turn % 2 === 1) {
+    currentEnemy.attack(currentHero, 'chain');
+    renderHero(currentHero);
+    renderEnemy(currentEnemy);
+
+    healthBar.width(currentEnemy.getHealth + '%');
+    turn++;
+  }
+
+  if (currentHero.getHealth <= 0 || currentEnemy.getHealth <= 0) {
+    $('.game-target').html(AppTemplates.gameover());
+  }
 };
 
 var currentHero = {};
@@ -64,7 +78,7 @@ selectCharacterEl.on('click', function() {
   var game = new Game(hero);
   currentHero = game.hero;
   currentEnemy = game.enemy;
-  turn = game.turn;
+  turn = game.turnNumber;
 
   newBattle();
 });
