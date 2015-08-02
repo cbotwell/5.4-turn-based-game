@@ -1,11 +1,14 @@
 <div class="center">
     <div class="start">
         <h1>CAGE MATCH</h1>
-        {{#each this as |cage|}}
-            <div class="character">
-                <img src="{{ cage.img }}" alt="{{ cage.name }}">
-                <button class="select-character" data-index="{{@index}}"> Select {{ cage.name }}</button>
-            </div>
-        {{/each}}
+        <div class="characters">
+            {{#each this as |cage|}}
+                <div class="character">
+                    <img src="{{ cage.imgUrl }}" alt="{{ cage.name }}">
+                    <p>{{ cage.name }}</p>
+                    <button class="select-character" data-index="{{@index}}"> Select</button>
+                </div>
+            {{/each}}
+        </div>
     </div>
 </div>

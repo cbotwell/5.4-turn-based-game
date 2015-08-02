@@ -3,6 +3,7 @@ function Character(options) {
   var hitPoints = options.hitPoints || 100;
   this.weapons = options.weapons || {};
   this.name = options.name;
+  this.imgUrl = options.imgUrl;
 
   this.takeDamage = function(damage) { hitPoints -=  damage; };
 

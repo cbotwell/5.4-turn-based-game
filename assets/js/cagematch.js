@@ -1,7 +1,7 @@
-castorTroy = new Character({name: 'Castor Troy', weapons: {dualGoldenGuns: 40}, hitPoints: 100});
-memphisRaines = new Character({name: 'Memphis Raines', weapons: {eleanor: 60}, hitPoints: 100});
-benjaminGates = new Character({name: 'Benjamin Gates', weapons: {declarationOfIndependence: 50}, hitPoints: 100});
-johhnyBlaze = new Character({name: 'Johnny Blaze', weapons: {chain: 30}, hitPoints: 100});
+castorTroy = new Character({name: 'Castor Troy', weapons: {dualGoldenGuns: 40}, hitPoints: 100, imgUrl: 'nic.png'});
+memphisRaines = new Character({name: 'Memphis Raines', weapons: {eleanor: 60}, hitPoints: 100, imgUrl: 'nic.png'});
+benjaminGates = new Character({name: 'Benjamin Gates', weapons: {declarationOfIndependence: 50}, hitPoints: 100, imgUrl: 'nic.png'});
+johhnyBlaze = new Character({name: 'Johnny Blaze', weapons: {chain: 30}, hitPoints: 100, imgUrl: 'nic.png'});
 
 var heros = [castorTroy, memphisRaines, benjaminGates, johhnyBlaze];
 
@@ -16,26 +16,36 @@ function Game(hero) {
 
 var selectCharacterEl = $('.select-character');
 
+var heroTargetEl = [];
+var enemyTargetEl = [];
+
+var renderHero = function(hero) {
+  heroTargetEl.html(AppTemplates.character(hero));
+};
+
+var renderEnemy = function(enemy) {
+  enemyTargetEl.html(AppTemplates.character(enemy));
+};
+
+var attackButtonEl = $('.attack');
+
+var newBattle = function() {
+  $('.game-target').html(AppTemplates.battle());
+  heroTargetEl = $('.hero-target');
+  enemyTargetEl = $('.enemy-target');
+  renderHero(currentHero);
+  renderEnemy(currentEnemy);
+  attackButtonEl.html('weapon');
+};
+
+var currentHero = {};
+var currentEnemy = {};
+
 selectCharacterEl.on('click', function() {
   var indexSelected = $(this).data('index');
   var hero = heros[indexSelected];
-
   var game = new Game(hero);
-  $('.game-target').html(AppTemplates.battle());
+  currentHero = game.hero;
+  currentEnemy = game.enemy;
+  newBattle();
 });
-
-var heroTargetEl = $('.hero-target');
-var enemyTargetEl = $('.enemy-target');
-
-var renderHero = function(output) {
-  var results = AppTemplates.character(output);
-  heroTargetEl.html(results);
-};
-
-var renderEnemy = function(output) {
-  var results = AppTemplates.character(output);
-  enemyTargetEl.html(results);
-};
-
-renderHero();
-renderEnemy();
