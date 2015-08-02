@@ -29,12 +29,19 @@ var renderEnemy = function(enemy) {
 
 var attackButtonEl = $('.attack');
 
+var healthBar = [];
+
 var newBattle = function() {
   $('.game-target').html(AppTemplates.battle());
+
   heroTargetEl = $('.hero-target');
   enemyTargetEl = $('.enemy-target');
   renderHero(currentHero);
   renderEnemy(currentEnemy);
+
+  healthBar = $('.hpbar');
+  healthBar.width(currentHero.getHealth + '%');
+
   attackButtonEl.html('weapon');
 };
 

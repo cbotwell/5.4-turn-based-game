@@ -71,6 +71,20 @@ body {
         img {
             width: 75%;
         }
+        .hp {
+            margin: 10px;
+        }
+        .hpborder {
+            margin: 10px;
+            border: $main-border;
+            @include span-columns(10);
+            @include shift(1);
+            height: 10px;
+        }
+        .hpbar {
+            background: red;
+            height: 5px;
+        }
     }
     .messages {
         @include span-columns(12);
