@@ -14,59 +14,15 @@ function Game(hero) {
   this.gameOver = false;
 }
 
+Game.prototype = _.extend({
+  constructor: Game,
+
+  isGameOver: function() {
+    //something?
+  }
+}, Backbone.Events);
+
 var selectCharacterEl = $('.select-character');
-
-var heroTargetEl = [];
-var enemyTargetEl = [];
-
-var renderHero = function(hero) {
-  heroTargetEl.html(AppTemplates.character(hero));
-};
-
-var renderEnemy = function(enemy) {
-  enemyTargetEl.html(AppTemplates.character(enemy));
-};
-
-var attackButtonEl = [];
-
-var healthBar = [];
-
-var newBattle = function(game) {
-  $('.game-target').html(AppTemplates.battle());
-
-  heroTargetEl = $('.hero-target');
-  enemyTargetEl = $('.enemy-target');
-  renderHero(game.hero);
-  renderEnemy(game.enemy);
-
-  healthBar = $('.hpbar');
-  healthBar.width(game.hero.getHealth + '%');
-
-  attackButtonEl = $('.attack');
-  attackButtonEl.html(game.hero.weaponName);
-
-  attackButtonEl.on('click', function() {
-    game.hero.attack(game.enemy, 'dualGoldenGuns');
-    renderHero(game.hero);
-    renderEnemy(game.enemy);
-
-    healthBar.width(game.enemy.getHealth + '%');
-    game.turnNumber++;
-  });
-
-  if (game.turnNumber % 2 === 1) {
-    game.enemy.attack(game.hero, 'chain');
-    renderHero(game.hero);
-    renderEnemy(game.enemy);
-
-    healthBar.width(game.enemy.getHealth + '%');
-    turn++;
-  }
-
-  if (game.hero.getHealth <= 0 || game.enemy.getHealth <= 0) {
-    $('.game-target').html(AppTemplates.gameover());
-  }
-};
 
 selectCharacterEl.on('click', function() {
   var indexSelected = $(this).data('index');
@@ -74,3 +30,31 @@ selectCharacterEl.on('click', function() {
   var game = new Game(hero);
   newBattle(game);
 });
+
+var healthBar;
+
+var gameTargetEl = $('.game-target')
+
+var newBattle = function(game) {
+  gameTargetEl.html(AppTemplates.battle(game));
+  healthBar = $('.hpbar');
+  healthBar.width(game.hero.getHealth + '%');
+
+  gameTargetEl.on('click', '.attack',function() {
+    game.hero.attack(game.enemy, 'dualGoldenGuns');
+    healthBar.width(game.enemy.getHealth + '%');
+    game.turnNumber++;
+    gameTargetEl.html(AppTemplates.battle(game));
+  });
+
+  if (game.turnNumber % 2 === 1) {
+    game.enemy.attack(game.hero, 'chain');
+
+    healthBar.width(game.enemy.getHealth + '%');
+    turn++;
+  }
+
+  if (game.gameOver) {
+    $('.game-target').html(AppTemplates.gameover());
+  }
+};

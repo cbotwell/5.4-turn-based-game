@@ -1,13 +1,31 @@
 <div class="center">
     <div class="battle">
         <div class="characters">
-            <div class="hero-target"></div>
-            <div class="enemy-target"></div>
+            <div class="hero-target">
+                <img src="{{ hero.imgUrl }}" alt="{{ hero.name }}">
+                <p>{{ hero.name }}</p>
+                <div class="hp">
+                    <p>HP: {{ hero.getHealth }}</p>
+                    <div class="hpborder">
+                        <div class="hpbar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="enemy-target">
+                <img src="{{ enemy.imgUrl }}" alt="{{ enemy.name }}">
+                <p>{{ enemy.name }}</p>
+                <div class="hp">
+                    <p>HP: {{ enemy.getHealth }}</p>
+                    <div class="hpborder">
+                        <div class="hpbar"></div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="messages">
             <div class="fight">
                 <i class="fa fa-play"></i>
-                <button class="attack">Attack</button>
+                <button class="attack">{{ hero.weaponName }}</button>
             </div>
         </div>
     </div>
