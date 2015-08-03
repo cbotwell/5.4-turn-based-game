@@ -55,6 +55,8 @@ var newBattle = function(game) {
     gameTargetEl.html(AppTemplates.start(heros));
   });
 
+  //trying to figure out how to use the below stuff
+
   if (game.turnNumber % 2 === 1) {
     game.enemy.attack(game.hero, 'chain');
 
