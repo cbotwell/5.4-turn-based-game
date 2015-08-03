@@ -84,14 +84,14 @@ memphisRaines = new Character({name: 'Memphis Raines', weapons: {eleanor: 60}, w
 benjaminGates = new Character({name: 'Benjamin Gates', weapons: {declarationOfIndependence: 50}, weaponName: 'Declaration of Independence', hitPoints: 100, imgUrl: 'benjamin.png'});
 johhnyBlaze = new Character({name: 'Johnny Blaze', weapons: {chain: 30}, weaponName: 'Chain', hitPoints: 100, imgUrl: 'johnny.png'});
 
-var heros = [castorTroy, memphisRaines, benjaminGates, johhnyBlaze];
+var heroes = [castorTroy, memphisRaines, benjaminGates, johhnyBlaze];
 var gameTargetEl = $('.game-target');
 
-gameTargetEl.html(AppTemplates.start(heros));
+gameTargetEl.html(AppTemplates.start(heroes));
 
 function Game(hero) {
   this.hero = hero;
-  this.enemy = johhnyBlaze;
+  this.enemy = _.sample(heroes);
   this.turnNumber = 0;
   this.gameOver = false;
 }
@@ -106,7 +106,7 @@ Game.prototype = _.extend({
 
 gameTargetEl.on('click', '.select-character', function() {
   var indexSelected = $(this).data('index');
-  var hero = heros[indexSelected];
+  var hero = heroes[indexSelected];
   var game = new Game(hero);
   newBattle(game);
 });
@@ -143,7 +143,7 @@ var newBattle = function(game) {
   });
 
   gameTargetEl.on('click', '.retry', function() {
-    gameTargetEl.html(AppTemplates.start(heros));
+    gameTargetEl.html(AppTemplates.start(heroes));
   });
 
   //trying to figure out how to use the below stuff later
