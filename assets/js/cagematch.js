@@ -34,29 +34,32 @@ var healthBar;
 
 var newBattle = function(game) {
   gameTargetEl.html(AppTemplates.battle(game));
-  healthBar = $('.enemyHpBar');
-  healthBar.width(game.enemy.getHealth() + '%');
+
+  heroHealthBar = $('.heroHpBar');
+  heroHealthBar.width(game.hero.getHealth() + '%');
+  enemyHealthBar = $('.enemyHpBar');
+  enemyHealthBar.width(game.enemy.getHealth() + '%');
 
   gameTargetEl.on('click', '.attack', function() {
     game.hero.attack(game.enemy, 'dualGoldenGuns');
+    game.enemy.attack(game.hero, 'chain');
     game.turnNumber++;
-
-    if (game.turnNumber % 2 == 1) {
-      $('.fight').html('Enemy Cage attacks with ' + game.enemy.weaponName);
-      window.setTimeout(function() {
-        game.enemy.attack(game.hero, 'chain');
-        game.turnNumber++;
-      }, 5000);
-    }
 
     if (game.enemy.getHealth() <= 0 || game.hero.getHealth() <= 0) {
       gameTargetEl.html(AppTemplates.gameover());
     } else {
       gameTargetEl.html(AppTemplates.battle(game));
-      healthBar = $('.enemyHpBar');
-      healthBar.width(game.enemy.getHealth() + '%');
+
+      heroHealthBar = $('.heroHpBar');
+      heroHealthBar.width(game.hero.getHealth() + '%');
+      enemyHealthBar = $('.enemyHpBar');
+      enemyHealthBar.width(game.enemy.getHealth() + '%');
+
       if (game.enemy.getHealth() <= 20) {
-        healthBar.addClass('lowHealth');
+        enemyHealthBar.addClass('lowHealth');
+      }
+      if (game.hero.getHealth() <= 20) {
+        heroHealthBar.addClass('lowHealth');
       }
     }
   });
