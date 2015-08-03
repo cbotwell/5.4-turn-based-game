@@ -81,9 +81,12 @@ body {
             @include shift(1);
             height: 10px;
         }
-        .hpbar {
-            background: red;
+        .heroHpBar, .enemyHpBar {
+            background: gray;
             height: 5px;
+        }
+        .lowHealth {
+            background: red;
         }
     }
     .messages {

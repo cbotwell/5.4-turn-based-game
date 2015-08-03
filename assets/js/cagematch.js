@@ -35,19 +35,22 @@ var healthBar;
 
 var newBattle = function(game) {
   gameTargetEl.html(AppTemplates.battle(game));
-  healthBar = $('.hpbar');
+  healthBar = $('.enemyHpBar');
   healthBar.width(game.enemy.getHealth() + '%');
 
   gameTargetEl.on('click', '.attack', function() {
     game.hero.attack(game.enemy, 'dualGoldenGuns');
-    healthBar.width(game.enemy.getHealth + '%');
     game.turnNumber++;
-    healthBar.width(game.enemy.getHealth() + '%');
 
     if (game.enemy.getHealth() <= 0 || game.hero.getHealth() <= 0) {
       gameTargetEl.html(AppTemplates.gameover());
     } else {
       gameTargetEl.html(AppTemplates.battle(game));
+      healthBar = $('.enemyHpBar');
+      healthBar.width(game.enemy.getHealth() + '%');
+      if (game.enemy.getHealth() <= 20) {
+        healthBar.addClass('lowHealth');
+      }
     }
   });
 
