@@ -80,9 +80,9 @@ Character.prototype = _.extend({
 }, Backbone.Events);
 
 castorTroy = new Character({name: 'Castor Troy', weapons: {dualGoldenGuns: 40}, weaponName: 'Dual Golden Guns', hitPoints: 100, imgUrl: 'castor.png'});
-memphisRaines = new Character({name: 'Memphis Raines', weapons: {eleanor: 60}, weaponName: 'Eleanor', hitPoints: 100, imgUrl: 'nic.png'});
-benjaminGates = new Character({name: 'Benjamin Gates', weapons: {declarationOfIndependence: 50}, weaponName: 'Declaration of Independence', hitPoints: 100, imgUrl: 'nic.png'});
-johhnyBlaze = new Character({name: 'Johnny Blaze', weapons: {chain: 30}, weaponName: 'Chain', hitPoints: 100, imgUrl: 'nic.png'});
+memphisRaines = new Character({name: 'Memphis Raines', weapons: {eleanor: 60}, weaponName: 'Eleanor', hitPoints: 100, imgUrl: 'memphis.png'});
+benjaminGates = new Character({name: 'Benjamin Gates', weapons: {declarationOfIndependence: 50}, weaponName: 'Declaration of Independence', hitPoints: 100, imgUrl: 'benjamin.png'});
+johhnyBlaze = new Character({name: 'Johnny Blaze', weapons: {chain: 30}, weaponName: 'Chain', hitPoints: 100, imgUrl: 'johnny.png'});
 
 var heros = [castorTroy, memphisRaines, benjaminGates, johhnyBlaze];
 var gameTargetEl = $('.game-target');
@@ -123,7 +123,7 @@ var newBattle = function(game) {
     game.turnNumber++;
 
     if (game.turnNumber % 2 == 1) {
-      $('.messages').html('Enemy Cage attacks with ' + game.enemy.weaponName);
+      $('.fight').html('Enemy Cage attacks with ' + game.enemy.weaponName);
       window.setTimeout(function() {
         game.enemy.attack(game.hero, 'chain');
         game.turnNumber++;
