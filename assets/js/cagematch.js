@@ -38,13 +38,17 @@ var gameTargetEl = $('.game-target')
 var newBattle = function(game) {
   gameTargetEl.html(AppTemplates.battle(game));
   healthBar = $('.hpbar');
-  healthBar.width(game.hero.getHealth + '%');
+  healthBar.width(game.enemy.getHealth() + '%');
 
   gameTargetEl.on('click', '.attack',function() {
     game.hero.attack(game.enemy, 'dualGoldenGuns');
     healthBar.width(game.enemy.getHealth + '%');
     game.turnNumber++;
     gameTargetEl.html(AppTemplates.battle(game));
+    healthBar.width(game.enemy.getHealth() + '%');
+    if (game.enemy.getHealth() <= 0 || game.hero.getHealth() <= 0) {
+      gameTargetEl.html(AppTemplates.gameover());
+    }
   });
 
   if (game.turnNumber % 2 === 1) {
