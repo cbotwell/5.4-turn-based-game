@@ -58,7 +58,8 @@ body {
             margin: 20px 0;
         }
         img {
-            width: 100%;
+            max-width: 100%;
+            max-height: 227px;
         }
     }
 
@@ -69,7 +70,8 @@ body {
         text-align: center;
         padding: 10px;
         img {
-            width: 75%;
+            max-width: 75%;
+            max-height: 379px;
         }
         .hp {
             margin: 10px;
