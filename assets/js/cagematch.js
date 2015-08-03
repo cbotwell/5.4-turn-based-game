@@ -22,9 +22,9 @@ Game.prototype = _.extend({
   }
 }, Backbone.Events);
 
-var selectCharacterEl = $('.select-character');
+var gameTargetEl = $('.game-target');
 
-selectCharacterEl.on('click', function() {
+gameTargetEl.on('click', '.select-character', function() {
   var indexSelected = $(this).data('index');
   var hero = heros[indexSelected];
   var game = new Game(hero);
@@ -33,22 +33,26 @@ selectCharacterEl.on('click', function() {
 
 var healthBar;
 
-var gameTargetEl = $('.game-target')
-
 var newBattle = function(game) {
   gameTargetEl.html(AppTemplates.battle(game));
   healthBar = $('.hpbar');
   healthBar.width(game.enemy.getHealth() + '%');
 
-  gameTargetEl.on('click', '.attack',function() {
+  gameTargetEl.on('click', '.attack', function() {
     game.hero.attack(game.enemy, 'dualGoldenGuns');
     healthBar.width(game.enemy.getHealth + '%');
     game.turnNumber++;
-    gameTargetEl.html(AppTemplates.battle(game));
     healthBar.width(game.enemy.getHealth() + '%');
+
     if (game.enemy.getHealth() <= 0 || game.hero.getHealth() <= 0) {
       gameTargetEl.html(AppTemplates.gameover());
+    } else {
+      gameTargetEl.html(AppTemplates.battle(game));
     }
+  });
+
+  gameTargetEl.on('click', '.retry', function() {
+    gameTargetEl.html(AppTemplates.start(heros));
   });
 
   if (game.turnNumber % 2 === 1) {
