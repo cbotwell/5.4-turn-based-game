@@ -31,6 +31,7 @@ function Game(hero) {
 
   this.renderBattle = function(game) {
     gameTargetEl.html(AppTemplates.battle(game));
+    this.renderHealth(game);
   };
 }
 
@@ -51,7 +52,6 @@ gameTargetEl.on('click', '.select-character', function() {
 
 var newBattle = function(game) {
   game.renderBattle(game);
-  game.renderHealth(game);
 
   gameTargetEl.on('click', '.attack', function() {
     game.hero.attack(game.enemy, 'dualGoldenGuns');
@@ -62,7 +62,6 @@ var newBattle = function(game) {
       gameTargetEl.html(AppTemplates.gameover());
     } else {
       game.renderBattle(game);
-      game.renderHealth(game);
     }
   });
 
