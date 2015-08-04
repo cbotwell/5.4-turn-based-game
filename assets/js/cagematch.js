@@ -14,7 +14,7 @@ function Game(hero) {
   this.turnNumber = 0;
   this.gameOver = false;
 
-  this.updateHealth = function(game) {
+  this.renderHealth = function(game) {
     var heroHealthBar = $('.heroHpBar');
     heroHealthBar.width(game.hero.getHealth() + '%');
     var enemyHealthBar = $('.enemyHpBar');
@@ -51,7 +51,7 @@ gameTargetEl.on('click', '.select-character', function() {
 
 var newBattle = function(game) {
   game.renderBattle(game);
-  game.updateHealth(game);
+  game.renderHealth(game);
 
   gameTargetEl.on('click', '.attack', function() {
     game.hero.attack(game.enemy, 'dualGoldenGuns');
@@ -62,7 +62,7 @@ var newBattle = function(game) {
       gameTargetEl.html(AppTemplates.gameover());
     } else {
       game.renderBattle(game);
-      game.updateHealth(game);
+      game.renderHealth(game);
     }
   });
 
