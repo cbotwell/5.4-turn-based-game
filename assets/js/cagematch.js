@@ -9,10 +9,29 @@ var gameTargetEl = $('.game-target');
 gameTargetEl.html(AppTemplates.start(heroes));
 
 function Game(hero) {
-  this.hero = hero;
-  this.enemy = _.sample(heroes);
+  this.hero = _.clone(hero);
+  this.enemy = _.clone(_.sample(heroes));
   this.turnNumber = 0;
   this.gameOver = false;
+
+  this.updateHealth = function(game) {
+    var heroHealthBar = $('.heroHpBar');
+    heroHealthBar.width(game.hero.getHealth() + '%');
+    var enemyHealthBar = $('.enemyHpBar');
+    enemyHealthBar.width(game.enemy.getHealth() + '%');
+
+    if (game.enemy.getHealth() <= 20) {
+      enemyHealthBar.addClass('lowHealth');
+    }
+
+    if (game.hero.getHealth() <= 20) {
+      heroHealthBar.addClass('lowHealth');
+    }
+  };
+
+  this.renderBattle = function(game) {
+    gameTargetEl.html(AppTemplates.battle(game));
+  };
 }
 
 Game.prototype = _.extend({
@@ -30,15 +49,9 @@ gameTargetEl.on('click', '.select-character', function() {
   newBattle(game);
 });
 
-var healthBar;
-
 var newBattle = function(game) {
-  gameTargetEl.html(AppTemplates.battle(game));
-
-  heroHealthBar = $('.heroHpBar');
-  heroHealthBar.width(game.hero.getHealth() + '%');
-  enemyHealthBar = $('.enemyHpBar');
-  enemyHealthBar.width(game.enemy.getHealth() + '%');
+  game.renderBattle(game);
+  game.updateHealth(game);
 
   gameTargetEl.on('click', '.attack', function() {
     game.hero.attack(game.enemy, 'dualGoldenGuns');
@@ -48,29 +61,12 @@ var newBattle = function(game) {
     if (game.enemy.getHealth() <= 0 || game.hero.getHealth() <= 0) {
       gameTargetEl.html(AppTemplates.gameover());
     } else {
-      gameTargetEl.html(AppTemplates.battle(game));
-
-      heroHealthBar = $('.heroHpBar');
-      heroHealthBar.width(game.hero.getHealth() + '%');
-      enemyHealthBar = $('.enemyHpBar');
-      enemyHealthBar.width(game.enemy.getHealth() + '%');
-
-      if (game.enemy.getHealth() <= 20) {
-        enemyHealthBar.addClass('lowHealth');
-      }
-      if (game.hero.getHealth() <= 20) {
-        heroHealthBar.addClass('lowHealth');
-      }
+      game.renderBattle(game);
+      game.updateHealth(game);
     }
   });
 
   gameTargetEl.on('click', '.retry', function() {
     gameTargetEl.html(AppTemplates.start(heroes));
   });
-
-  //trying to figure out how to use the below stuff later
-
-  if (game.gameOver) {
-    $('.game-target').html(AppTemplates.gameover());
-  }
 };
