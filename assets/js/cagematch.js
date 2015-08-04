@@ -38,6 +38,11 @@ function Game(hero) {
 Game.prototype = _.extend({
   constructor: Game,
 
+  chooseAttack: function() {
+    game.hero.attack(game.enemy, 'dualGoldenGuns');
+    game.enemy.attack(game.hero, 'chain');
+  },
+
   isGameOver: function() {
     //something?
   }
