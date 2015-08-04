@@ -22,6 +22,14 @@ var appJs = concat(templatesAndScripts, {outputFile: 'app.js', inputFiles: [
     'js/cagematch.js'
   ]});
 
-var compiledSass = sass(['assets/scss', 'bower_components/reset-css'], 'cagematch.scss', 'app.css');
+var includePaths = [
+    'assets/scss',
+    'bower_components/reset-css',
+    'bower_components/bourbon/app/assets/stylesheets',
+    'bower_components/fontawesome/scss',
+    'bower_components/neat/app/assets/stylesheets'
+];
+
+var compiledSass = sass(includePaths, 'cagematch.scss', 'app.css');
 
 module.exports = mergeTrees(['public', appJs, compiledSass, bowerStuff]);
