@@ -41,6 +41,7 @@ Game.prototype = _.extend({
   chooseAttack: function() {
     game.hero.attack(game.enemy, 'dualGoldenGuns');
     game.enemy.attack(game.hero, 'chain');
+    //trigger('change');
   },
 
   isGameOver: function() {
